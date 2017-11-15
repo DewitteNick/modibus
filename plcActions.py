@@ -1,4 +1,9 @@
-from pymodbus3.client.sync import ModbusTcpClient
+import pip
+try:
+    from pymodbus3.client.sync import ModbusTcpClient
+except Exception as e:
+    print("installing required module: pymodbus3")
+    pip.main(['install','pymodbus3'])
 
 
 def selectTarget():
