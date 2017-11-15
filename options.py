@@ -1,5 +1,5 @@
-from Enum import enum
+from enum import Enum
 
-class Options(enum):
+class Options(Enum):
     READPORTS = 1
     WRITEPORTS = 2

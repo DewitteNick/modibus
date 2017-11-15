@@ -1,11 +1,5 @@
-from pymodbus3.client.sync import ModbusTcpClient
-import options
+from options import Options
 import plcActions
-
-
-clientIP = str(input('Target IP? '))
-client = ModbusTcpClient(clientIP)
-client.connect()
 
 
 def showMenu():
@@ -15,28 +9,25 @@ def showMenu():
 
 
 def executeOption(option):  #Returns 0 if user executed an valid option, 1 otherwise.
-    if option == options.READPORTS:
+    if option == Options.READPORTS.value:
         plcActions.readPorts()
         return 0
-    elif option == options.WRITEPORTS:
+    elif option == Options.WRITEPORTS.value:
         plcActions.writePorts()
         return 0
     else:
         return 1
 
 
-def shutdown():
-    client.close()
-
-
-
 def main():
+    plcActions.selectTarget()
     option = eval(showMenu())
     while option != 0:
         exitCode = executeOption(option)
         if(exitCode == 1):
             print('\n\tInvalid option, exitcode: ' + str(exitCode) + '\n')
         option = eval(showMenu())
+    plcActions.closeTarget()
 
 
 main()
