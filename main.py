@@ -3,7 +3,9 @@ import plcActions
 
 
 def showMenu():
-    menuOptions = "\t0)\tExit\n\t1)\tRead outputs\n\t2)\tWrite outputs\n\n\tPlease select:\t"
+    menuOptions = "\t0)\tExit"  #TODO create for loop, and put options in an array.
+    menuOptions += "\n\t1)\tRead outputs\n\t2)\tWrite outputs"
+    menuOptions += "\n\n\tPlease select:\t"
     userSelection = input(menuOptions)
     return userSelection
 
@@ -20,7 +22,7 @@ def executeOption(option):  #Returns 0 if user executed an valid option, 1 other
 
 
 def main():
-    plcActions.selectTarget()
+    # plcActions.selectTarget()
     option = eval(showMenu())
     while option != 0:
         exitCode = executeOption(option)
