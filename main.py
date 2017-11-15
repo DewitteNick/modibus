@@ -4,7 +4,7 @@ import plcActions
 
 def showMenu():
     menuOptions = "\t0)\tExit"  #TODO create for loop, and put options in an array.
-    menuOptions += "\n\t1)\tRead outputs\n\t2)\tWrite outputs"
+    menuOptions += "\n\t1)\tRead outputs\n\t2)\tWrite outputs\n\t3)\tRead registers\n\t4)\tWrite registers"
     menuOptions += "\n\n\tPlease select:\t"
     userSelection = input(menuOptions)
     return userSelection
@@ -16,6 +16,12 @@ def executeOption(option):  #Returns 0 if user executed an valid option, 1 other
         return 0
     elif option == Options.WRITEPORTS.value:
         plcActions.writePorts()
+        return 0
+    elif option == Options.READREGISTERS.value:
+        plcActions.readRegister()
+        return 0
+    elif option == Options.WRITEREGISTERS.value:
+        plcActions.writeRegister()
         return 0
     else:
         return 1
