@@ -13,16 +13,17 @@ def selectTarget():
     return client
 
 
-def readPorts():
-    ports = int(input('how many coils should be scanned? '))
-    for position in range(0, ports):
+def readCoils():
+    coils = int(input('How many coils should be scanned? '))
+    for position in range(0, coils):
         result = client.read_coils(position, 1)
         plcPort = '%Qx' + str(position // 8) + '.' + str(position % 8)
         print('Port ' + str(plcPort), result.bits[0])
 
 
-def writePorts():   #TODO ask amount of coils
-    data = [False] * 16
+def writeCoils():   #TODO ask amount of coils
+    coils = int(input('How many coils are present? '))
+    data = [False] * coils
     portSelected = int(input("Select a coil to enable. Others are disabled by default. Press 0 to submit "))
     while portSelected != 0:
         dataChosen = eval(input("Select data to be written. Bools begin with a capital, strings are with quotes "))
@@ -38,7 +39,6 @@ def writePorts():   #TODO ask amount of coils
 def readRegister():
     starting_adress = eval(input('Starting adress? '))
     adress_count = int(input('How many adressess should be scanned? (Max 125)'))
-    # unit = 1 #TODO scan for units?
     data = client.read_holding_registers(starting_adress, adress_count)
     try:
         print(data.registers)

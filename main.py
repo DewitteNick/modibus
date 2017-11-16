@@ -4,7 +4,6 @@ import plcActions
 
 def showMenu():
     menuString = ""
-    #TODO enumerate Options directly?
     menuOptions = {Options.EXIT.value: "Exit", Options.READCOILS.value: "Read outputs", Options.WRITECOILS.value: "Write outputs", Options.READREGISTERS.value: "Read registers", Options.WRITEREGISTERS.value: "Write registers", Options.READINPUTS.value: "Read inputs"}
     for option in menuOptions:
         menuString += "\n\t" + str(option) + ")\t" + menuOptions[option]
@@ -15,10 +14,10 @@ def showMenu():
 
 def executeOption(option):  #Returns 0 if user executed an valid option, 1 otherwise.
     if option == Options.READCOILS.value:
-        plcActions.readPorts()
+        plcActions.readCoils()
         return 0
     elif option == Options.WRITECOILS.value:
-        plcActions.writePorts()
+        plcActions.writeCoils()
         return 0
     elif option == Options.READREGISTERS.value:
         plcActions.readRegister()
@@ -34,7 +33,6 @@ def executeOption(option):  #Returns 0 if user executed an valid option, 1 other
 
 
 def main():
-    # plcActions.selectTarget()
     option = eval(showMenu())
     while option != Options.EXIT.value:
         exitCode = executeOption(option)
