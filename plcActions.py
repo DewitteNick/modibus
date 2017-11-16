@@ -60,9 +60,11 @@ def writeRegister():
 
 def readInputs():
     starting_adress = eval(input('Starting input? '))
-    # adress_count = int(input('How many inputs should be scanned? '))
-    data = client.read_input_registers(starting_adress)
-    print(data)
+    adress_count = int(input('How many inputs should be scanned? '))
+    data = client.read_discrete_inputs(starting_adress, adress_count)
+    for position in range(0, len(data.bits)):
+        plcInput = '%Ix' + str(position // 8) + "." + str(position % 8)
+        print("Input " + plcInput, data.bits[position])
 
 
 
