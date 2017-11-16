@@ -3,8 +3,10 @@ import plcActions
 
 
 def showMenu():
-    menuOptions = "\t0)\tExit"  #TODO create for loop, and put options in an array.
-    menuOptions += "\n\t1)\tRead outputs\n\t2)\tWrite outputs\n\t3)\tRead registers\n\t4)\tWrite registers"
+    menuArray = ["Exit", "Read outputs", "Write outputs", "Read registers", "Write registers"]  #TODO Add dictionary? now the program only works if strings are ordered right
+    menuOptions = ""
+    for i in range(0, len(menuArray)):
+        menuOptions += "\n\t" + str(i) + ")\t" + menuArray[i]
     menuOptions += "\n\n\tPlease select:\t"
     userSelection = input(menuOptions)
     return userSelection
