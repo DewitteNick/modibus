@@ -38,7 +38,7 @@ def writePorts():   #TODO ask amount of coils
 def readRegister():
     starting_adress = eval(input('Starting adress? '))
     adress_count = int(input('How many adressess should be scanned? (Max 125)'))
-    unit = 1 #TODO scan for units?
+    # unit = 1 #TODO scan for units?
     data = client.read_holding_registers(starting_adress, adress_count)
     try:
         print(data.registers)
@@ -56,6 +56,13 @@ def writeRegister():
         registers[registerSelected - 1] = dataChosen
         registerSelected = eval(input('select register to write to. Others are 0x00 by default. Press 0 to submit'))
     client.write_registers(0, registers)    #TODO replace 0 with starting_adress
+
+
+def readInputs():
+    starting_adress = eval(input('Starting input? '))
+    # adress_count = int(input('How many inputs should be scanned? '))
+    data = client.read_input_registers(starting_adress)
+    print(data)
 
 
 
