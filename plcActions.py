@@ -7,14 +7,15 @@ except Exception as e:
 
 
 def selectTarget():
-    clientIP = str(input('Target IP? '))
+    clientIP = str(input('\n\tTarget IP? '))
     client = ModbusTcpClient(clientIP)
     client.connect()
     return client
 
 
 def readCoils():
-    coils = int(input('How many coils should be scanned? '))
+    coils = int(input('\n\tHow many coils should be scanned? '))
+    print()
     for position in range(0, coils):
         result = client.read_coils(position, 1)
         plcPort = '%Qx' + str(position // 8) + '.' + str(position % 8)
@@ -22,13 +23,14 @@ def readCoils():
 
 
 def writeCoils():   #TODO ask amount of coils
-    coils = int(input('How many coils are present? '))
+    coils = int(input('\n\tHow many coils are present? '))
     data = [False] * coils
     portSelected = int(input("Select a coil to enable. Others are disabled by default. Press 0 to submit "))
+    print()
     while portSelected != 0:
-        dataChosen = eval(input("Select data to be written. Bools begin with a capital, strings are with quotes "))
+        dataChosen = eval(input("\n\tSelect data to be written. Bools begin with a capital, strings are with quotes "))
         data[portSelected - 1] = dataChosen
-        portSelected = int(input("Select a coil to enable. Others are disabled by default. Press 0 to submit "))
+        portSelected = int(input("\n\tSelect a coil to enable. Others are disabled by default. Press 0 to submit "))
     client.write_coils(0, data)
 
 
@@ -37,8 +39,8 @@ def writeCoils():   #TODO ask amount of coils
 # including inputs, outputs, configuration data, or any requirement for "holding" data.
 
 def readRegister():
-    starting_adress = eval(input('Starting adress? '))
-    adress_count = int(input('How many adressess should be scanned? (Max 125)'))
+    starting_adress = eval(input('\n\tStarting adress? '))
+    adress_count = int(input('\n\tHow many adressess should be scanned? (Max 125)'))
     data = client.read_holding_registers(starting_adress, adress_count)
     try:
         print(data.registers)
@@ -47,21 +49,23 @@ def readRegister():
 
 
 def writeRegister():
-    starting_adress = int(input('Starting adress? '))
-    adress_count = int(input('How many adressess should be scanned? (total should be < 126) '))
+    starting_adress = int(input('\n\tStarting adress? '))
+    adress_count = int(input('\n\tHow many adressess should be scanned? (total should be < 126) '))
     registers = [0x00] * adress_count
-    registerSelected = eval(input('select register to write to. Others are 0x00 by default. Press 0 to submit'))
+    registerSelected = eval(input('\n\tselect register to write to. Others are 0x00 by default. Press 0 to submit'))
+    print()
     while registerSelected != 0:
-        dataChosen = int(input('Select data to be written. Should be an integer smaller >= 65535'))
+        dataChosen = int(input('\n\tSelect data to be written. Should be an integer smaller >= 65535'))
         registers[registerSelected - 1] = dataChosen
-        registerSelected = eval(input('select register to write to. Others are 0x00 by default. Press 0 to submit'))
+        registerSelected = eval(input('\n\tselect register to write to. Others are 0x00 by default. Press 0 to submit'))
     client.write_registers(0, registers)    #TODO replace 0 with starting_adress
 
 
 def readInputs():
-    starting_adress = eval(input('Starting input? '))
-    adress_count = int(input('How many inputs should be scanned? '))
+    starting_adress = eval(input('\n\tStarting input? '))
+    adress_count = int(input('\n\tHow many inputs should be scanned? '))
     data = client.read_discrete_inputs(starting_adress, adress_count)
+    print()
     for position in range(0, len(data.bits)):
         plcInput = '%Ix' + str(position // 8) + "." + str(position % 8)
         print("Input " + plcInput, data.bits[position])
