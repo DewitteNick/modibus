@@ -25,12 +25,12 @@ def readCoils():
 def writeCoils():   #TODO ask amount of coils
     coils = int(input('\n\tHow many coils are present? '))
     data = [False] * coils
-    portSelected = int(input("Select a coil to enable. Others are disabled by default. Press 0 to submit "))
+    portSelected = eval(input("\n\tSelect a coil to enable. unselected coils are disabled by default. Type 'submit' to submit "))
     print()
-    while portSelected != 0:
+    while portSelected != 'submit':
         dataChosen = eval(input("\n\tSelect data to be written. Bools begin with a capital, strings are with quotes "))
         data[portSelected - 1] = dataChosen
-        portSelected = int(input("\n\tSelect a coil to enable. Others are disabled by default. Press 0 to submit "))
+        portSelected = eval(input("\n\tSelect a coil to enable. unselected coils are disabled by default. Type 'submit' to submit "))
     client.write_coils(0, data)
 
 
